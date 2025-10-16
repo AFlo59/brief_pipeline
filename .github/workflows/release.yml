@@ -25,26 +25,30 @@ jobs:
       pull-requests: write
 
     steps:
+      
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # important pour récupérer l'historique des tags/commits
 
+            
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+            
       - name: Install deps
         run: npm ci
 
+            
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+            
       - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-
