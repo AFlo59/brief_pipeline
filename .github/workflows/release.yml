@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
 
-# Permissions nécessaires pour créer tags/releases et pousser le CHANGELOG
 permissions:
   contents: write
   issues: write
@@ -30,11 +29,6 @@ jobs:
         with:
           node-version: '20'
 
-      # Lance semantic-release avec les plugins utiles pour un repo non-npm :
-      # - commit-analyzer + release-notes-generator : calcul de version + notes
-      # - changelog : met à jour CHANGELOG.md
-      # - git : commit/push du CHANGELOG et des fichiers modifiés
-      # - github : crée la release GitHub + tag
       - name: Run Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         with:
