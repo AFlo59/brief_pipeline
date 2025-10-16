@@ -2,7 +2,9 @@ name: Release
 
 on:
   push:
-    branches: [ main ]
+    branches:
+        - main
+        - develop
 
 permissions:
   contents: write
@@ -41,3 +43,4 @@ jobs:
             @semantic-release/github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
