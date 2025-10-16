@@ -46,7 +46,7 @@ class NYCTaxiDataDownloader():
                 r.raise_for_status()
                 total = int(r.headers.get("content-lenght", "0"))
                 downloaded = 0
-                chunk_size = 8000
+                chunk_size = 8192
                 with open(tmp_path, "wb") as f:
                     for chunk in r.iter_content(chunk_size = chunk_size):
                         if not chunk:
@@ -109,6 +109,3 @@ class NYCTaxiDataDownloader():
 if __name__ == "__main__":
     downloader = NYCTaxiDataDownloader(year=datetime.now().year)
     downloader.download_all_available()
-    
-
-
