@@ -16,31 +16,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+
   release:
-    name: semantic-release
+    name: Release Semantic
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # nécessaire pour analyser l'historique des commits
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      - name: Install dependencies for npm
+        run: |
+          npm install
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
       - name: Run Semantic Release
-        uses: cycjimmy/semantic-release-action@v4
-        with:
-          semantic_version: 23
-          extra_plugins: |
-            @semantic-release/commit-analyzer
-            @semantic-release/release-notes-generator
-            @semantic-release/changelog
-            @semantic-release/git
-            @semantic-release/github
+        run: |
+          npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
