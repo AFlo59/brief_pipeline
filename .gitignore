@@ -31,7 +31,7 @@ data/
 
 # Node
 node_modules/
-package-lock.json
+!package-lock.json
 
 # Docker
 docker-compose.override.yml
